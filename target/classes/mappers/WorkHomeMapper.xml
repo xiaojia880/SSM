@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.WorkHomeDao">
+    <!--查所有-->
+    <select id="getAll" resultType="WorkHome">
+            select * from workhome
+        </select>
+
+    <select id="count" resultType="int">
+            select count(wid) from workhome
+        </select>
+
+    <select id="countPi" resultType="int">
+            select count(uid) from pinglun
+        </select>
+
+    <!--根据ID查-->
+    <select id="getOneByWid" parameterType="Integer" resultType="WorkHome">
+            select * from workhome where wid=#{wid}
+        </select>
+    <!--根据Title查-->
+    <select id="getOneByTitle" resultType="WorkHome">
+            select * from workhome where wtitle like CONCAT('%',CONCAT(#{wtitle}),'%')
+        </select>
+    <!--添加-->
+    <insert id="add" parameterType="WorkHome">
+            insert into workhome(wtitle,wcontent,uname,wdate,uid) values (#{wtitle},#{wcontent},#{uname},#{wdate},#{uid})
+        </insert>
+    <!--删除-->
+    <delete id="delete" parameterType="Integer">
+            delete from workhome where wid=#{wid}
+        </delete>
+    <!--修改-->
+    <update id="update" parameterType="WorkHome">
+            update workhome set wtitle=#{wtitle}, wcontent=#{wcontent}, uname=#{uname}, wdate=#{wdate} where wid=#{wid}
+        </update>
+
+    <select id="comment" parameterType="Integer" resultMap="teacherMap">
+
+        select u.uid,u.uname,d.wdate,p.commentdate,d.wtitle,p.commenttext
+        from workhome d,pinglun p,user u
+        where d.wid=p.wid and u.uid=p.uid and d.wid=#{wid}
+
+    </select>
+    <resultMap id="teacherMap" type="WorkHome">
+        <id property="wid" column="wid"/>
+        <result property="wtitle" column="wtitle"/><!--动态-->
+        <result property="uid" column="uid"/>
+        <result property="wdate" column="wdate"/>
+
+        <collection property="comments" ofType="Comment">
+            <id property="wid" column="wid"/>
+            <result property="commenttext" column="commenttext"/>
+
+            <result property="commentdate" column="commentdate"/>
+            <collection property="users" ofType="User">
+                <id property="uid" column="uid"/>
+                <result property="uname" column="uname"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+    <insert id="CommentAdd" parameterType="Comment">
+        insert into pinglun (uid,commenttext,commentdate,wid) values (#{uid},#{commenttext},#{commentdate},#{wid})
+    </insert>
+
+    <insert id="addMsg" parameterType="Contact">
+        insert into contact (tid,tname,temail,ttitle,temg,tdate) values (#{tid},#{tname},#{temail},#{ttitle},#{temg},#{tdate})
+    </insert>
+</mapper>

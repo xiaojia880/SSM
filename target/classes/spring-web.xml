@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--配置扫描包-->
+    <context:component-scan base-package="com.qf"/>
+    <!--注册handlermapping-->
+    <mvc:annotation-driven/>
+    <!--允许访问静态资源-->
+    <mvc:default-servlet-handler/>
+    <!--配置视图解析器-->
+    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+        <property name="characterEncoding" value="utf-8"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".html"/>
+        <property name="templateMode" value="HTML"/>
+        <property name="cacheable" value="false"/>
+    </bean>
+    <!--模板引擎-->
+    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+    <!--    &lt;!&ndash;thymeleaf视图解析器&ndash;&gt;-->
+    <!--    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">-->
+    <!--        <property name="characterEncoding" value="utf-8"/>-->
+    <!--        &lt;!&ndash;模板引擎&ndash;&gt;-->
+    <!--        <property name="templateEngine" ref="templateEngine"/>-->
+    <!--    </bean>-->
+    <!--    &lt;!&ndash;上传&ndash;&gt;-->
+    <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+    <!--        <property name="defaultEncoding" value="utf-8"/>-->
+    <!--        <property name="maxUploadSize" value="1048576"/>-->
+    <!--        <property name="uploadTempDir" value="file:/d:/temp"/>-->
+    <!--    </bean>-->
+    <!--thymeleaf 视图解析器-->
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="characterEncoding" value="utf-8"/>
+        <!--模板引擎-->
+        <property name="templateEngine" ref="templateEngine"></property>
+    </bean>
+    <!--上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--最大的上传速度-->
+        <property name="maxUploadSize" value="1048567"></property>
+        <!---->
+        <property name="uploadTempDir" value="file:/d:/temp"/>
+
+    </bean>
+
+    <!--拦截器配置-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/index.html"/>
+            <mvc:exclude-mapping path="/blog.html"/>
+            <mvc:exclude-mapping path="/single.html"/>
+            <mvc:exclude-mapping path="/toIndex"/>
+            <mvc:exclude-mapping path="/getAll"/>
+            <mvc:exclude-mapping path="/getOneByTitle"/>
+            <mvc:exclude-mapping path="/bbbb.html"/>
+            <mvc:exclude-mapping path="/findpsd.html"/>
+            <mvc:exclude-mapping path="/passwordError"/>
+            <mvc:exclude-mapping path="/pppp.html"/>
+            <mvc:exclude-mapping path="/ppppp.html"/>
+            <mvc:exclude-mapping path="/pppppp.html"/>
+            <mvc:exclude-mapping path="/registerError.html"/>
+            <mvc:exclude-mapping path="/assets/**"/>
+            <mvc:exclude-mapping path="/blog/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/movies/**"/>
+            <mvc:exclude-mapping path="/tu/**"/>
+            <mvc:exclude-mapping path="/xx/**"/>
+            <mvc:exclude-mapping path="/loginCheck"/>
+            <mvc:exclude-mapping path="/add"/>
+            <mvc:exclude-mapping path="/login.html"/>
+            <mvc:exclude-mapping path="/toLogin"/>
+            <mvc:exclude-mapping path="/getOneByWid/"/>
+            <mvc:exclude-mapping path="/houtaiIndex.html"/>
+            <mvc:exclude-mapping path="/findpsd.html"/>
+            <mvc:exclude-mapping path="/find"/>
+            <mvc:exclude-mapping path="/getpassword"/>
+            <mvc:exclude-mapping path="/find"/>
+            <bean class="com.qf.interceptor.Interceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+</beans>

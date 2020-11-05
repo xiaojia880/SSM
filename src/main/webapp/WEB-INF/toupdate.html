@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8"/>
+<head>
+    <meta charset="utf-8">
+    <title>Contact Me</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="blog/css/bootstrap.min.css">
+
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="blog/css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet'
+          type='text/css'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="blog/css/style.css" id="theme-styles">
+
+    <!--[if lt IE 9]>
+    <script src="js/vendor/google/html5-3.6-respond-1.1.0.min.js"></script>
+    <![endif]-->
+    <style>
+        * {
+            margin: 0;
+        }
+
+        .progress {
+            width: 400px;
+            height: 20px;
+            background: #ddd;
+            position: relative;
+        }
+
+        .info {
+            width: 0px;
+            height: 20px;
+            background: #ec5710;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+</head>
+<body style="margin: 50px;">
+<header>
+    <div class="widewrapper masthead">
+        <div class="container">
+            <a href="getAll" id="logo">
+                <img src="blog/img/logo.png" alt="clean Blog">
+            </a>
+            <div id="mobile-nav-toggle" class="pull-right">
+                <a href="#" data-toggle="collapse" data-target=".clean-nav .navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <nav class="pull-right clean-nav">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav nav-pills navbar-nav">
+
+                        <li>
+                            <a href="getAll">首页</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="widewrapper subheader">
+        <div class="container">
+            <div class="clean-breadcrumb">
+                <a href="#">密码位数不少于5个字符，且区分大小写，支持字母（a-z，A-Z）、数字（0-9）及“_~@#$^”符号。</a>
+            </div>
+            <div class="clean-searchbox">
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="widewrapper main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 clean-superblock" id="contact">
+                <h2>信 息 修 改</h2>
+                <form action="upload" method="post" accept-charset="utf-8" class="contact-form"
+                      enctype="multipart/form-data" th:object="${user}">
+                    <input type="file" id="file" name="file" class="form-control input-lg"/>
+                    <div class="progress">
+                        <div class="info" id="info">
+                        </div>
+                    </div>
+                    <div id="result"></div>
+                    <input type="hidden" name="uid" id="uid" th:value="*{uid}" class="form-control input-lg">
+                    <input type="hidden" name="uemail" id="uemail" th:value="*{uemail}" class="form-control input-lg">
+                    <input type="text" name="uname" id="uname" placeholder="请输入要修改的用户名" class="form-control input-lg">
+                    <input type="text" name="upassword" id="upassword" placeholder="请输入要修改的密码"
+                           class="form-control input-lg">
+                    <input type="text" name="uphone" id="uphone" placeholder="请输入要修改的手机号" class="form-control input-lg">
+                    <div class="buttons clearfix">
+                        <button type="submit" id="btn" class="btn btn-xlarge btn-clean-one">确 认 修 改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="widewrapper footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-widget">
+                    <h3><i class="fa fa-user"></i>About</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab animi laboriosam nostrum consequatur
+                        fugiat at, labore praesentium modi, quasi dolorum debitis reiciendis facilis, dolor saepe sint
+                        nemo, earum molestias quas.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, error aspernatur assumenda
+                        quae eveniet.</p>
+                </div>
+                <div class="col-md-4 footer-widget">
+                    <h3><i class="fa fa-pencil"></i> Recent Post</h3>
+                    <ul class="clean-list">
+                        <li><a href="">Clean - Responsive HTML5 Template</a></li>
+                        <li><a href="">Responsive Pricing Table</a></li>
+                        <li><a href="">Yellow HTML5 Template</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-widget">
+                    <h3><i class="fa fa-envelope"></i>Contact Me</h3>
+
+                    <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil fugiat, cupiditate veritatis
+                        excepturi tempore explicabo.</p>
+                    <div class="footer-widget-icon">
+                        <i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-google"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widewrapper copyright">
+        Copyright 2015
+    </div>
+</footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="blog/js/bootstrap.min.js"></script>
+<script src="blog/js/modernizr.js"></script>
+<script>
+    var oFlie = document.getElementById("file")
+    var oBtn = document.getElementById("btn")
+    var oRes = document.getElementById("result")
+    var oImg = document.getElementsByTagName("img")
+    var oInfo = document.getElementById("info")
+    oBtn.onclick = function () {
+        var fs = oFlie.files[0]
+        var reader = new FileReader(fs)
+        reader.onprogress = function (e) {
+            oInfo.style.width = e.loaded / e.total * 200 + "px"
+            oRes.innerHTML = Math.round((e.loaded / e.total * 200) * 0.5) + "%"
+        }
+        reader.onload = function () {
+            var data = new FormData()
+            data.append("file", fs)
+            $.ajax({
+                type: "post",
+                url: "api/test.php",
+                async: true,
+                data: {
+                    data: data
+                },
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res)
+                }
+            });
+        }
+        reader.readAsDataURL(fs)
+    }
+</script>
+</body>
+</html>

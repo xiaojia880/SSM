@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="blog/css/bootstrap.min.css">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="blog/css/font-awesome/css/font-awesome.min.css">
+
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet'
+          type='text/css'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="blog/css/style.css" id="theme-styles">
+
+    <!--[if lt IE 9]>
+    <script src="js/respond.js"></script>
+    <![endif]-->
+    <style>
+        a:hover {
+            color: red
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    <div class="widewrapper masthead">
+        <div class="container">
+            <a href="getAll" id="logo">
+                <img src="blog/img/logo.png" alt="clean Blog">
+            </a>
+
+            <div id="mobile-nav-toggle" class="pull-right">
+                <a href="#" data-toggle="collapse" data-target=".clean-nav .navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+
+            <nav class="pull-right clean-nav">
+                <div class="collapse navbar-collapse" style="text-align: center">
+                    <ul class="nav nav-pills navbar-nav">
+                        <li>
+                            <a href="toIndex">首页</a>
+                        </li>
+                        <li>
+                            <a href="getAll">主页</a>
+                        </li>
+                        <li>
+                            <a href="/SSM/towrite">创作</a>
+                        </li>
+                        <li>
+                            <a href="/SSM/selectOne">个人中心</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="widewrapper subheader">
+        <div class="container">
+            <div class="clean-breadcrumb">
+                <a href="#">“ 磨练，使人难以忍受，使人步履维艰，但它能使强者站得更挺，走得更稳，产生更强的斗志。”</a>
+            </div>
+
+            <div class="clean-searchbox">
+                <form th:action="@{getOneByTitle}" method="get" accept-charset="utf-8">
+                    <input class="searchfield" id="searchbox" name="text" type="text" placeholder="搜索">
+                    <button class="searchbutton" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="widewrapper main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+
+                <div class="col-md-6 col-sm-6" th:each="message,iterStat:${alls}">
+                    <article class=" blog-teaser">
+                        <header>
+                            <img src="blog/img/1.jpg" alt="">
+                            <h3><a th:href="@{getOneByWid/}+${message.wid}" th:text="${message.wtitle}"></a></h3>
+                            <span class="meta" th:text="${message.uname}"></span>&ensp;<span
+                                th:text="${message.wdate}"></span>
+                            <hr>
+                        </header>
+                    </article>
+                </div>
+
+                <!--                    <div class="copyrights">Collect from <a href="http://www.moobnn.com/"  title="网站模板">网站模板</a></div>-->
+
+                <div class="paging">
+                    <div style="visibility: hidden">
+                        <a href="getAll">首页</a>
+                        <a th:href="@{/getAll(pageIndex=${pagebean.pageIndex-1})}">上一页</a>
+                        <a th:href="@{/getAll(pageIndex=${pagebean.pageIndex+1})}">下一页</a>
+                        <a th:href="@{/getAll(pageIndex=${pagebean.pageMax})}">尾页</a>
+                        当前第<span th:text="${pagebean.pageIndex}"></span>页，共<span id="s1"
+                                                                                 th:text="${pagebean.pageMax}"></span>页
+                    </div>
+                    <!--                        <a href="#" class="older">TOP</i></a>-->
+                </div>
+                <div style="position: relative">
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    <a href="getAll">首页</a>&ensp;&ensp;
+                    <a th:href="@{/getAll(pageIndex=${pagebean.pageIndex-1})}">上一页</a>&ensp;&ensp;
+                    <a th:href="@{/getAll(pageIndex=${pagebean.pageIndex+1})}">下一页</a>&ensp;&ensp;
+                    <a th:href="@{/getAll(pageIndex=${pagebean.pageMax})}">尾页</a>
+                    <br>
+
+                    <br>
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;
+                    当前第&ensp;&ensp;<span
+                        th:text="${pagebean.pageIndex}"></span>&ensp;&ensp;页&ensp;|&ensp;共&ensp;&ensp;<span id="s1"
+                                                                                                            th:text="${pagebean.pageMax}"></span>&ensp;&ensp;页
+
+                </div>
+
+            </div>
+            <aside class="col-md-4 blog-aside">
+
+                <div class="aside-widget">
+                    <header>
+                        <h3>快速浏览</h3>
+                    </header>
+                    <div class="body">
+                        <ul class="clean-list" th:each="iterStat:${alls}">
+                            <li><a href="" th:text="${iterStat.wtitle}"></a></li>
+                            <!--                                <li><a href="">Responsive Pricing Table</a></li>-->
+                            <!--                                <li><a href="">Yellow HTML5 Template</a></li>-->
+                            <!--                                <li><a href="">Blackor Responsive Theme</a></li>-->
+                            <!--                                <li><a href="">Portfolio Bootstrap Template</a></li>-->
+                            <!--                                <li><a href="">Clean Slider Template</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+
+                <!--                    <div class="aside-widget">-->
+                <!--                        <header>-->
+                <!--                            <h3>相关帖子</h3>-->
+                <!--                        </header>-->
+                <!--                        <div class="body">-->
+                <!--                            <ul class="clean-list">-->
+                <!--                                <li><a href="">Blackor Responsive Theme</a></li>-->
+                <!--                                <li><a href="">Portfolio Bootstrap Template</a></li>-->
+                <!--                                <li><a href="">Clean Slider Template</a></li>-->
+                <!--                                <li><a href="">Clean - Responsive HTML5 Template</a></li>-->
+                <!--                                <li><a href="">Responsive Pricing Table</a></li>-->
+                <!--                                <li><a href="">Yellow HTML5 Template</a></li>-->
+                <!--                            </ul>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+<!--                <div class="aside-widget">-->
+<!--                    <header>-->
+<!--                        <h3>标签</h3>-->
+<!--                    </header>-->
+<!--                    <div class="body clearfix">-->
+<!--                        <ul class="tags">-->
+<!--                            <li><a href="#">军事</a></li>-->
+<!--                            <li><a href="#">电影</a></li>-->
+<!--                            <li><a href="#">生活</a></li>-->
+<!--                            <li><a href="#">数码</a></li>-->
+<!--                            <li><a href="#">科技</a></li>-->
+<!--                            <li><a href="#">情感</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </aside>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="widewrapper footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-widget">
+                    <h3><i class="fa fa-user"></i>关于</h3>
+
+                    <p>三年二班成立于这个观众成为消费品的年代，是想要向更多的人展现只有短短几十年，却不断积累下来的文化的美妙，</p>
+                    <p>用户是我们服务的目标，说是服务，其实更多的是交友的过程。我们将树立一种深层次的价值观。</p>
+                </div>
+
+                <div class="col-md-4 footer-widget">
+                    <!--                        <h3> <i class="fa fa-pencil"></i>        </h3>-->
+                    <!--                        <ul class="clean-list" th:each="iterStat:${object}">-->
+                    <!--                            <li><a href="" th:text="*{wtitle}">Clean - Responsive HTML5 Template</a></li>-->
+                    <!--&lt;!&ndash;                            <li><a href="">Responsive Pricing Table</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                            <li><a href="">Yellow HTML5 Template</a></li>&ndash;&gt;-->
+                    <!--                        </ul>-->
+                </div>
+
+                <div class="col-md-4 footer-widget">
+                    <h3><i class="fa fa-envelope"></i>联系我们</h3>
+                    <p>公司地址：山西省太原市小店区长治路能源互联网大厦6层</p>
+                    <p>公司邮编：030006</p>
+                    <p>联系电话：01068608228</p>
+                    <div class="footer-widget-icon">
+                        <i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-google"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="widewrapper copyright">
+        Copyright &copy; 2020.Company name All rights reserved&nbsp;三年二班. |<a href="toLogin" target="_blank"> 后台管理</a>
+    </div>
+</footer>
+
+<script src="blog/js/jquery.min.js"></script>
+<script src="blog/js/bootstrap.min.js"></script>
+<script src="blog/js/modernizr.js"></script>
+
+</body>
+</html>

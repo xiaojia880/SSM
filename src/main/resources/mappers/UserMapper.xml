@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.UserDao">
+    <select id="getOne" resultType="User" parameterType="String">
+    select * from user where uemail=#{email}
+    </select>
+
+    <select id="getAll" resultType="User">
+    select * from user
+    </select>
+
+    <delete id="delete" parameterType="User">
+        delete from user where uid=#{id}
+    </delete>
+
+    <update id="update" parameterType="User">
+        update  user set uname=#{uname},upassword=#{upassword},uphone=#{uphone},utu=#{utu} where uid=#{uid}
+    </update>
+
+    <insert id="addOne" parameterType="User">
+        insert into user(uname,upassword,uphone,uemail,utu)values(#{uname},#{upassword},#{uphone},#{uemail},#{utu})
+    </insert>
+
+
+    <select id="getWorkHomeList" parameterType="Integer" resultMap="UserMap">
+        select uid,uname,upassword,uphone,uemail,utu from user where uid=#{uid}
+    </select>
+    <resultMap id="UserMap" type="User">
+        <id property="uid" column="uid"></id>
+        <result property="uname" column="uname"></result>
+        <result property="upassword" column="upassword"></result>
+        <result property="uphone" column="uphone"></result>
+        <result property="uemail" column="uemail"></result>
+        <result property="utu" column="utu"></result>
+        <association property="workHome" select="getUser" column="uid"></association>
+    </resultMap>
+    <select id="getUser" parameterType="Integer" resultType="WorkHome">
+        select wid,wtitle,wcontent,uname,wdate,uid from workhome where uid=#{uid};
+    </select>
+
+</mapper>
